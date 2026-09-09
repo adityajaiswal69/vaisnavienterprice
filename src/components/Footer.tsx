@@ -14,13 +14,13 @@ export default function Footer() {
       <div className="relative mx-auto max-w-7xl px-6 py-16">
         <div className="grid gap-12 lg:grid-cols-[1.4fr_1fr_1fr_1.2fr]">
           <div>
-            <div className="inline-block rounded-lg bg-white/95 p-4">
+            <div className="inline-block rounded-lg bg-white/95 p-3">
               <Image
-                src="/logo-vaishnavi-wide.png"
+                src="/logo-vaishnavi.png"
                 alt={`${company.name} logo`}
-                width={440}
-                height={216}
-                className="h-12 w-auto"
+                width={627}
+                height={627}
+                className="h-28 w-auto"
               />
             </div>
             <p className="mt-6 max-w-sm text-sm leading-relaxed text-steel-400">

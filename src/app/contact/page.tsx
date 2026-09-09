@@ -50,7 +50,8 @@ export default function ContactPage() {
               href={c.href}
               target={c.href.startsWith("http") ? "_blank" : undefined}
               rel={c.href.startsWith("http") ? "noopener noreferrer" : undefined}
-              className="group bg-white p-6 transition hover:bg-navy-50/60 sm:p-8"
+              // min-w-0 lets the long email wrap instead of forcing the grid track open
+              className="group min-w-0 bg-white p-6 transition hover:bg-navy-50/60 sm:p-8"
             >
               <Eyebrow>{c.label}</Eyebrow>
               <p className="mt-3 break-words font-display text-xl text-navy-900 transition group-hover:text-gold-600 sm:text-2xl">

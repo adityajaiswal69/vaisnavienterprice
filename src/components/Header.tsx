@@ -59,15 +59,15 @@ export default function Header() {
             : "border-b border-transparent bg-white"
         }`}
       >
-        <div className="mx-auto flex max-w-7xl items-center justify-between gap-6 px-6 py-3">
+        <div className="mx-auto flex max-w-7xl items-center justify-between gap-6 px-6 py-2">
           <Link href="/" className="flex shrink-0 items-center" aria-label={`${company.name} home`}>
             <Image
-              src="/logo-vaishnavi-wide.png"
+              src="/logo-vaishnavi.png"
               alt={`${company.name} logo`}
-              width={440}
-              height={216}
+              width={627}
+              height={627}
               priority
-              className={`w-auto transition-all duration-300 ${scrolled ? "h-11" : "h-14"}`}
+              className={`w-auto transition-all duration-300 ${scrolled ? "h-14" : "h-20"}`}
             />
           </Link>
 
