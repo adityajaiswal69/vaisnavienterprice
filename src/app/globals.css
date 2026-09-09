@@ -1,0 +1,134 @@
+@import "tailwindcss";
+
+@theme {
+  /* Brand palette lifted from the Vaishnavi Enterprises logo */
+  --color-navy-50: #eef3fa;
+  --color-navy-100: #d6e2f2;
+  --color-navy-200: #adc3e2;
+  --color-navy-300: #7d9dcd;
+  --color-navy-400: #4b73ad;
+  --color-navy-500: #2b5289;
+  --color-navy-600: #1d3d6b;
+  --color-navy-700: #142e52;
+  --color-navy-800: #0e2340;
+  --color-navy-900: #0a1a30;
+  --color-navy-950: #06101f;
+
+  --color-gold-200: #f0dcae;
+  --color-gold-300: #e3c77e;
+  --color-gold-400: #d4ad57;
+  --color-gold-500: #c39a41;
+  --color-gold-600: #a37d31;
+
+  --color-steel-100: #eef1f5;
+  --color-steel-200: #dde3ea;
+  --color-steel-300: #c3ccd8;
+  --color-steel-400: #9aa8ba;
+  --color-steel-500: #6f8098;
+
+  --font-sans: var(--font-manrope), ui-sans-serif, system-ui, sans-serif;
+  --font-display: var(--font-playfair), ui-serif, Georgia, serif;
+
+  --ease-out-quint: cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+@layer base {
+  html {
+    scroll-behavior: smooth;
+    -webkit-text-size-adjust: 100%;
+  }
+
+  body {
+    background-color: #ffffff;
+    color: var(--color-navy-900);
+    font-family: var(--font-sans);
+    -webkit-font-smoothing: antialiased;
+    text-rendering: optimizeLegibility;
+  }
+
+  ::selection {
+    background-color: var(--color-gold-300);
+    color: var(--color-navy-900);
+  }
+
+  :focus-visible {
+    outline: 2px solid var(--color-gold-400);
+    outline-offset: 3px;
+    border-radius: 2px;
+  }
+}
+
+@layer components {
+  /* Thin gold rule used under section eyebrows */
+  .rule-gold {
+    background: linear-gradient(
+      90deg,
+      var(--color-gold-400) 0%,
+      var(--color-gold-400) 32px,
+      color-mix(in srgb, var(--color-gold-400) 25%, transparent) 32px,
+      transparent 100%
+    );
+  }
+
+  /* Brushed-metal sheen for dark panels */
+  .sheen {
+    background-image:
+      repeating-linear-gradient(
+        90deg,
+        rgba(255, 255, 255, 0.035) 0px,
+        rgba(255, 255, 255, 0) 2px,
+        rgba(255, 255, 255, 0) 5px
+      ),
+      radial-gradient(120% 90% at 15% 0%, rgba(212, 173, 87, 0.14) 0%, transparent 60%);
+  }
+
+  /* Faint blueprint grid */
+  .grid-lines {
+    background-image:
+      linear-gradient(to right, rgba(255, 255, 255, 0.05) 1px, transparent 1px),
+      linear-gradient(to bottom, rgba(255, 255, 255, 0.05) 1px, transparent 1px);
+    background-size: 64px 64px;
+  }
+
+  .grid-lines-dark {
+    background-image:
+      linear-gradient(to right, rgba(10, 26, 48, 0.06) 1px, transparent 1px),
+      linear-gradient(to bottom, rgba(10, 26, 48, 0.06) 1px, transparent 1px);
+    background-size: 64px 64px;
+  }
+}
+
+/* Scroll-reveal: elements start shifted, .is-visible settles them */
+.reveal {
+  opacity: 0;
+  transform: translateY(22px);
+  transition:
+    opacity 0.7s var(--ease-out-quint),
+    transform 0.7s var(--ease-out-quint);
+  transition-delay: var(--reveal-delay, 0ms);
+}
+
+.reveal.is-visible {
+  opacity: 1;
+  transform: none;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+
+  .reveal {
+    opacity: 1;
+    transform: none;
+    transition: none;
+  }
+
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}

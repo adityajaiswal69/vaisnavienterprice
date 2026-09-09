@@ -1,0 +1,170 @@
+{
+  "hero-foundry": {
+    "file": "/images/hero-foundry.jpg",
+    "title": "Molten metal pouring from a furnace into an industrial ladle",
+    "author": "Unsplash contributor",
+    "license": "Unsplash License",
+    "source": "https://unsplash.com/photos/1613970351372-9804e380bd09",
+    "query": "unsplash"
+  },
+  "about-plant": {
+    "file": "/images/about-plant.jpg",
+    "title": "Factory floor filled with production machinery",
+    "author": "Unsplash contributor",
+    "license": "Unsplash License",
+    "source": "https://unsplash.com/photos/1727504172725-14acb4f32655",
+    "query": "unsplash"
+  },
+  "scrap-yard": {
+    "file": "/images/scrap-yard.jpg",
+    "title": "Excavator working a pile of scrap metal",
+    "author": "Unsplash contributor",
+    "license": "Unsplash License",
+    "source": "https://unsplash.com/photos/1722695694560-f452b0919d3a",
+    "query": "unsplash"
+  },
+  "segregation": {
+    "file": "/images/segregation.jpg",
+    "title": "Assorted metal components collected for recycling",
+    "author": "Unsplash contributor",
+    "license": "Unsplash License",
+    "source": "https://unsplash.com/photos/1606337321936-02d1b1a4d5ef",
+    "query": "unsplash"
+  },
+  "furnace": {
+    "file": "/images/furnace.jpg",
+    "title": "Production of aluminium pot (melting of aluminium) 1",
+    "author": "Kambai Akau",
+    "license": "CC BY-SA 4.0",
+    "source": "https://commons.wikimedia.org/wiki/File%3AProduction_of_aluminium_pot_%28melting_of_aluminium%29_1.jpg",
+    "query": "aluminium melting furnace"
+  },
+  "lab-testing": {
+    "file": "/images/lab-testing.jpg",
+    "title": "Technician in a lab coat at a testing bench",
+    "author": "Unsplash contributor",
+    "license": "Unsplash License",
+    "source": "https://unsplash.com/photos/1669707040737-a6237bc0ae50",
+    "query": "unsplash"
+  },
+  "logistics": {
+    "file": "/images/logistics.jpg",
+    "title": "Forklift loading pallets of goods into a truck",
+    "author": "Unsplash contributor",
+    "license": "Unsplash License",
+    "source": "https://unsplash.com/photos/1779517225996-d5b751f80f48",
+    "query": "unsplash"
+  },
+  "sustainability": {
+    "file": "/images/sustainability.jpg",
+    "title": "Crushed aluminium beverage cans collected for recycling",
+    "author": "Unsplash contributor",
+    "license": "Unsplash License",
+    "source": "https://unsplash.com/photos/1561503412-852800622772",
+    "query": "unsplash"
+  },
+  "prod-adc12": {
+    "file": "/images/prod-adc12.jpg",
+    "title": "Machined metal components on a workbench",
+    "author": "Unsplash contributor",
+    "license": "Unsplash License",
+    "source": "https://unsplash.com/photos/1723632670536-e3104577a19c",
+    "query": "unsplash"
+  },
+  "prod-lm24": {
+    "file": "/images/prod-lm24.jpg",
+    "title": "Operator working molten metal in a foundry",
+    "author": "Unsplash contributor",
+    "license": "Unsplash License",
+    "source": "https://unsplash.com/photos/1697281435920-96ae28dbee14",
+    "query": "unsplash"
+  },
+  "prod-ingots": {
+    "file": "/images/prod-ingots.jpg",
+    "title": "Metal blocks stacked on top of each other",
+    "author": "Unsplash contributor",
+    "license": "Unsplash License",
+    "source": "https://unsplash.com/photos/1680391793434-12b2dd86d625",
+    "query": "unsplash"
+  },
+  "prod-soft-aluminium": {
+    "file": "/images/prod-soft-aluminium.jpg",
+    "title": "Three cylindrical aluminium billets side by side",
+    "author": "Unsplash contributor",
+    "license": "Unsplash License",
+    "source": "https://unsplash.com/photos/1681108212545-04cabe9cf771",
+    "query": "unsplash"
+  },
+  "prod-shots": {
+    "file": "/images/prod-shots.jpg",
+    "title": "Aluminium Powder for AAC blocks",
+    "author": "Shivamprotecosppl",
+    "license": "CC BY-SA 4.0",
+    "source": "https://commons.wikimedia.org/wiki/File%3AAluminium_Powder_for_AAC_blocks.jpg",
+    "query": "aluminium granules"
+  },
+  "prod-cubes-bars": {
+    "file": "/images/prod-cubes-bars.jpg",
+    "title": "Two solid metal cubes on a plain surface",
+    "author": "Unsplash contributor",
+    "license": "Unsplash License",
+    "source": "https://unsplash.com/photos/1731317734787-17bcb34f1078",
+    "query": "unsplash"
+  },
+  "steel-plant": {
+    "file": "/images/steel-plant.jpg",
+    "title": "Industrial complex illuminated at night",
+    "author": "Unsplash contributor",
+    "license": "Unsplash License",
+    "source": "https://unsplash.com/photos/1761414500570-0b835cdcf3c8",
+    "query": "unsplash"
+  },
+  "team-floor": {
+    "file": "/images/team-floor.jpg",
+    "title": "Two workers handling metal on a factory floor",
+    "author": "Unsplash contributor",
+    "license": "Unsplash License",
+    "source": "https://unsplash.com/photos/1684259499227-e9844ab79747",
+    "query": "unsplash"
+  },
+  "worker": {
+    "file": "/images/worker.jpg",
+    "title": "Worker in a hard hat inside a factory",
+    "author": "Unsplash contributor",
+    "license": "Unsplash License",
+    "source": "https://unsplash.com/photos/1735494032948-14ef288fc9d3",
+    "query": "unsplash"
+  },
+  "pouring": {
+    "file": "/images/pouring.jpg",
+    "title": "Molten metal being poured on the plant floor",
+    "author": "Unsplash contributor",
+    "license": "Unsplash License",
+    "source": "https://unsplash.com/photos/1697281679321-a9ce55ce0a8f",
+    "query": "unsplash"
+  },
+  "steel-making": {
+    "file": "/images/steel-making.jpg",
+    "title": "Steel being produced inside a mill",
+    "author": "Unsplash contributor",
+    "license": "Unsplash License",
+    "source": "https://unsplash.com/photos/1697281679290-ad7be1b10682",
+    "query": "unsplash"
+  },
+  "texture": {
+    "file": "/images/texture.jpg",
+    "title": "Brushed metal surface with fine vertical lines",
+    "author": "Unsplash contributor",
+    "license": "Unsplash License",
+    "source": "https://unsplash.com/photos/1667892702884-faa077e80d7b",
+    "query": "unsplash"
+  },
+  "foil-texture": {
+    "file": "/images/foil-texture.jpg",
+    "title": "Close-up of crumpled aluminium foil",
+    "author": "Unsplash contributor",
+    "license": "Unsplash License",
+    "source": "https://unsplash.com/photos/1594255897691-9d1edad1ecfc",
+    "query": "unsplash"
+  }
+}
