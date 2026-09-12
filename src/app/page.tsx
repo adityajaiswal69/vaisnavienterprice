@@ -1,467 +1,234 @@
-import Image from "next/image";
-import Link from "next/link";
-import Counter from "@/components/Counter";
+import HeroCarousel from "@/components/HeroCarousel";
 import Reveal from "@/components/Reveal";
-import { ArrowRight, Button, CtaBand, Eyebrow, SectionHeading } from "@/components/ui";
-import { products } from "@/data/products";
-import {
-  company,
-  highlights,
-  industries,
-  market,
-  processSteps,
-  solutions,
-  stats,
-  usps,
-} from "@/data/site";
+import { BoxButton, CatalogTitle, CategoryCard, ContactSection, slugify } from "@/components/catalog";
+import { productCategories, products } from "@/data/products";
+import { company, companyFacts, coreValues, highlights, industries, stats, usps } from "@/data/site";
+
+/** Which product lines each industry segment typically buys. */
+const industryProducts: Record<string, string[]> = {
+  "Die-casters & alloy manufacturers": ["adc-12-alloy", "lm-24-ac-4b-alloy", "aluminium-ingots"],
+  "Foundries & re-melters": ["soft-aluminium", "aluminium-ingots", "aluminium-shots"],
+  "Steel plants": ["cubes-and-notch-bars", "aluminium-shots", "aluminium-ingots"],
+};
+
+function FactIcon({ index }: { index: number }) {
+  const cls = "h-8 w-8 text-white/90";
+  const icons = [
+    // hand holding coin: nature of business
+    <svg key="0" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" className={cls} aria-hidden><circle cx="15" cy="6" r="3" /><path d="M3 13h3l4 3h5a1.5 1.5 0 0 1 0 3H9M3 19h3l3 1h6l6-3a1.5 1.5 0 0 0-2-2l-3 1" strokeLinecap="round" strokeLinejoin="round" /></svg>,
+    // people: employees
+    <svg key="1" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" className={cls} aria-hidden><circle cx="9" cy="8" r="3" /><circle cx="17" cy="9" r="2.5" /><path d="M3 19a6 6 0 0 1 12 0M14 19a4.5 4.5 0 0 1 7 -3" strokeLinecap="round" /></svg>,
+    // calendar: established
+    <svg key="2" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" className={cls} aria-hidden><rect x="3" y="5" width="18" height="16" rx="2" /><path d="M3 10h18M8 3v4M16 3v4" strokeLinecap="round" /></svg>,
+    // scales: legal status
+    <svg key="3" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" className={cls} aria-hidden><path d="M12 3v18M6 21h12M4 7h16M6 7l-3 7a3 3 0 0 0 6 0L6 7Zm12 0-3 7a3 3 0 0 0 6 0l-3-7Z" strokeLinecap="round" strokeLinejoin="round" /></svg>,
+    // chart: years
+    <svg key="4" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" className={cls} aria-hidden><path d="M4 20V10M10 20V4M16 20v-8M22 20H2" strokeLinecap="round" /></svg>,
+    // medal: founder experience
+    <svg key="5" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" className={cls} aria-hidden><circle cx="12" cy="14" r="6" /><path d="m8 3 2 6M16 3l-2 6M9 3h6" strokeLinecap="round" /></svg>,
+    // handshake: customers
+    <svg key="6" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" className={cls} aria-hidden><path d="M2 9h4l4 4 3-3 3 3 2-2 4 3v4l-5 3-5-1-4-4H2V9Z" strokeLinejoin="round" /></svg>,
+    // boxes: product lines
+    <svg key="7" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" className={cls} aria-hidden><path d="M12 3 3 7.5v9L12 21l9-4.5v-9L12 3Zm0 9L3 7.5M12 12l9-4.5M12 12v9" strokeLinejoin="round" /></svg>,
+  ];
+  return icons[index % icons.length];
+}
 
 export default function HomePage() {
+  const slides = products.map((p) => ({
+    href: `/products/${p.slug}`,
+    image: p.image,
+    caption: p.name,
+  }));
+
   return (
     <>
-      {/* ---------------------------------------------------------------- Hero */}
-      <section className="relative isolate overflow-hidden bg-navy-950">
-        <Image
-          src="/images/hero-foundry.jpg"
-          alt="Molten aluminium being poured from a furnace into an industrial ladle"
-          fill
-          priority
-          sizes="100vw"
-          className="object-cover opacity-70"
-        />
-        <div
-          className="absolute inset-0 bg-gradient-to-br from-navy-950 via-navy-950/80 to-navy-950/25"
-          aria-hidden
-        />
-        <div className="grid-lines absolute inset-0 opacity-40" aria-hidden />
+      {/* ----------------------------------------------------- Hero carousel */}
+      <HeroCarousel slides={slides} />
 
-        <div className="relative mx-auto max-w-7xl px-6 pb-20 pt-20 sm:pb-24 sm:pt-28 lg:pb-28 lg:pt-32">
-          <div className="grid items-center gap-14 lg:grid-cols-[1.15fr_0.85fr]">
-            <div>
-              <Reveal>
-                <div className="inline-flex items-center gap-2.5 rounded-full border border-gold-400/30 bg-white/5 px-4 py-1.5 backdrop-blur-sm">
-                  <span className="h-1.5 w-1.5 rounded-full bg-gold-400" />
-                  <span className="text-xs font-medium uppercase tracking-[0.18em] text-gold-200">
-                    {company.yearsOperating} years in aluminium recycling
-                  </span>
-                </div>
-              </Reveal>
-
-              <Reveal delay={80}>
-                <h1 className="mt-7 max-w-3xl font-display text-4xl leading-[1.08] tracking-tight text-white sm:text-5xl lg:text-6xl xl:text-[4.2rem]">
-                  Turning aluminium scrap into{" "}
-                  <span className="text-gold-300">certified, furnace-ready</span>{" "}
-                  alloy.
-                </h1>
-              </Reveal>
-
-              <Reveal delay={160}>
-                <p className="mt-8 max-w-xl text-base leading-relaxed text-steel-300 sm:text-lg">
-                  {company.summary}
-                </p>
-              </Reveal>
-
-              <Reveal delay={240}>
-                <div className="mt-10 flex flex-wrap gap-3">
-                  <Button href="/products" variant="gold">
-                    Explore our products
-                    <ArrowRight />
-                  </Button>
-                  <Button href="/contact" variant="ghost">
-                    Talk to our team
-                  </Button>
-                </div>
-              </Reveal>
-
-              <Reveal delay={320}>
-                <dl className="mt-14 grid max-w-2xl grid-cols-2 gap-x-6 gap-y-8 border-t border-white/10 pt-10 sm:grid-cols-4">
-                  {stats.map((s) => (
-                    <div key={s.label}>
-                      <dt className="sr-only">{s.label}</dt>
-                      <dd>
-                        <span className="block font-display text-4xl text-gold-300">
-                          <Counter value={s.value} />
-                        </span>
-                        <span className="mt-2 block text-xs leading-snug text-steel-400">
-                          {s.label}
-                        </span>
-                      </dd>
-                    </div>
-                  ))}
-                </dl>
-              </Reveal>
+      {/* ------------------------------------------------ Profile band (navy) */}
+      <section className="sheen relative bg-navy-700 text-white">
+        <div className="grid-lines absolute inset-0 opacity-30" aria-hidden />
+        <div className="relative mx-auto max-w-7xl px-6 pb-10 pt-10">
+          <div className="grid items-center gap-8 lg:grid-cols-[6rem_1fr_6rem]">
+            <div className="hidden justify-center lg:flex">
+              <span className="grid h-24 w-24 place-items-center rounded-full border-4 border-gold-400 bg-white text-center text-navy-900">
+                <span className="text-[0.62rem] font-bold uppercase leading-tight">
+                  Est.
+                  <br />
+                  <span className="text-2xl font-extrabold text-navy-800">{company.established}</span>
+                </span>
+              </span>
             </div>
+            <div className="text-center">
+              <p className="mx-auto max-w-4xl text-lg leading-relaxed sm:text-xl">{company.summary}</p>
+              <BoxButton href="/about" variant="white" className="mt-7 px-6 py-2.5 text-base">
+                + Read More
+              </BoxButton>
+            </div>
+            <div className="hidden justify-center lg:flex">
+              <span className="grid h-24 w-24 place-items-center rounded-full border-4 border-gold-400 bg-white text-center text-navy-900">
+                <span className="text-[0.62rem] font-bold uppercase leading-tight">
+                  <span className="text-2xl font-extrabold text-navy-800">{company.yearsOperating}</span>
+                  <br />
+                  years
+                </span>
+              </span>
+            </div>
+          </div>
 
-            {/* Logo plaque */}
-            <Reveal delay={200} className="hidden lg:block">
-              <div className="relative">
+          {/* Facts, two rows of four */}
+          {[companyFacts.slice(0, 4), companyFacts.slice(4)].map((row, r) => (
+            <dl
+              key={r}
+              className={`grid gap-6 sm:grid-cols-2 lg:grid-cols-4 lg:gap-0 ${
+                r === 0 ? "mt-12 border-t border-white/25 pt-8" : "mt-8 border-t border-white/25 pt-8"
+              }`}
+            >
+              {row.map((f, i) => (
                 <div
-                  className="absolute -inset-6 rounded-3xl bg-gradient-to-br from-gold-400/20 via-transparent to-transparent blur-2xl"
-                  aria-hidden
-                />
-                <div className="relative rounded-2xl border border-white/12 bg-white/95 p-10 shadow-[0_40px_80px_-30px_rgba(0,0,0,0.7)]">
-                  <Image
-                    src="/logo-vaishnavi.png"
-                    alt={`${company.name} logo`}
-                    width={620}
-                    height={620}
-                    priority
-                    className="mx-auto h-auto w-full max-w-[19rem]"
-                  />
-                </div>
-              </div>
-            </Reveal>
-          </div>
-        </div>
-      </section>
-
-      {/* ------------------------------------------------------- Product strip */}
-      <section className="border-b border-navy-100 bg-navy-50/60">
-        <div className="mx-auto max-w-7xl px-6 py-6">
-          <div className="flex flex-wrap items-center gap-x-8 gap-y-3">
-            <span className="text-xs font-semibold uppercase tracking-[0.2em] text-navy-500">
-              We supply
-            </span>
-            {products.map((p) => (
-              <Link
-                key={p.slug}
-                href={`/products/${p.slug}`}
-                className="text-sm font-medium text-navy-700/80 transition hover:text-gold-600"
-              >
-                {p.shortName}
-              </Link>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      {/* --------------------------------------------------------------- About */}
-      <section className="bg-white py-20 sm:py-28">
-        <div className="mx-auto max-w-7xl px-6">
-          <div className="grid items-center gap-14 lg:grid-cols-2 lg:gap-20">
-            <Reveal>
-              <div className="relative">
-                <div className="relative aspect-4/3 overflow-hidden rounded-2xl">
-                  <Image
-                    src="/images/about-plant.jpg"
-                    alt="Glowing metal moving through an industrial plant"
-                    fill
-                    sizes="(min-width: 1024px) 46vw, 100vw"
-                    className="object-cover"
-                  />
-                </div>
-                <div className="absolute -bottom-8 -right-4 hidden w-56 rounded-xl border border-navy-100 bg-white p-6 shadow-[0_24px_60px_-24px_rgba(10,26,48,0.45)] sm:block">
-                  <span className="block font-display text-4xl text-navy-800">25</span>
-                  <span className="mt-1 block text-sm leading-snug text-navy-600/80">
-                    years of founder experience in the aluminium trade
-                  </span>
-                </div>
-              </div>
-            </Reveal>
-
-            <Reveal delay={120}>
-              <SectionHeading
-                eyebrow="Who we are"
-                title="An organised recycler in a fragmented market."
-                lead={company.longAbout[0]}
-              />
-              <p className="mt-5 text-base leading-relaxed text-navy-600/85">
-                {company.longAbout[1]}
-              </p>
-
-              <ul className="mt-9 grid gap-x-8 gap-y-3.5 sm:grid-cols-2">
-                {highlights.map((h) => (
-                  <li key={h} className="flex items-start gap-3 text-sm text-navy-700">
-                    <span
-                      className="mt-1.5 h-1.5 w-1.5 shrink-0 rounded-full bg-gold-400"
-                      aria-hidden
-                    />
-                    {h}
-                  </li>
-                ))}
-              </ul>
-
-              <div className="mt-10">
-                <Button href="/about" variant="outline">
-                  More about the company
-                  <ArrowRight />
-                </Button>
-              </div>
-            </Reveal>
-          </div>
-        </div>
-      </section>
-
-      {/* ------------------------------------------------------------ Products */}
-      <section className="relative bg-navy-50/70 py-20 sm:py-28">
-        <div className="grid-lines-dark absolute inset-0 opacity-60" aria-hidden />
-        <div className="relative mx-auto max-w-7xl px-6">
-          <div className="flex flex-wrap items-end justify-between gap-8">
-            <Reveal>
-              <SectionHeading
-                eyebrow="Our offerings"
-                title="Six furnace-ready product lines."
-                lead="Alloys, refined ingots, soft aluminium, granulated shots and steel-plant cubes and bars — each processed to the grade our customer actually runs."
-              />
-            </Reveal>
-            <Reveal delay={100}>
-              <Button href="/products" variant="outline">
-                View full catalogue
-                <ArrowRight />
-              </Button>
-            </Reveal>
-          </div>
-
-          <div className="mt-14 grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
-            {products.map((p, i) => (
-              <Reveal key={p.slug} delay={i * 70}>
-                <Link
-                  href={`/products/${p.slug}`}
-                  className="group flex h-full flex-col overflow-hidden rounded-xl border border-navy-100 bg-white transition duration-300 hover:-translate-y-1 hover:border-gold-300 hover:shadow-[0_28px_60px_-30px_rgba(10,26,48,0.5)]"
+                  key={f.label}
+                  className="flex items-center gap-4 lg:border-l lg:border-white/25 lg:px-6 lg:first:border-l-0"
                 >
-                  <div className="relative aspect-16/10 overflow-hidden">
-                    <Image
-                      src={p.image}
-                      alt={p.name}
-                      fill
-                      sizes="(min-width: 1024px) 30vw, (min-width: 640px) 45vw, 100vw"
-                      className="object-cover transition duration-700 group-hover:scale-105"
-                    />
-                    <div
-                      className="absolute inset-0 bg-gradient-to-t from-navy-950/70 via-transparent to-transparent"
-                      aria-hidden
-                    />
-                    <span className="absolute left-4 top-4 rounded-full bg-white/95 px-3 py-1 text-[0.7rem] font-semibold uppercase tracking-wider text-navy-700">
-                      {p.grade}
-                    </span>
+                  <FactIcon index={r * 4 + i} />
+                  <div>
+                    <dt className="text-sm text-white/80">{f.label}</dt>
+                    <dd className="text-base font-semibold">{f.value}</dd>
                   </div>
-
-                  <div className="flex flex-1 flex-col p-6">
-                    <span className="text-[0.7rem] font-semibold uppercase tracking-[0.16em] text-gold-600">
-                      {String(i + 1).padStart(2, "0")}
-                    </span>
-                    <h3 className="mt-2 font-display text-xl text-navy-900">
-                      {p.name}
-                    </h3>
-                    <p className="mt-3 flex-1 text-sm leading-relaxed text-navy-600/85">
-                      {p.summary}
-                    </p>
-                    <span className="mt-5 inline-flex items-center gap-2 text-sm font-semibold text-navy-700 transition group-hover:text-gold-600">
-                      Specifications
-                      <ArrowRight className="transition-transform duration-300 group-hover:translate-x-1" />
-                    </span>
-                  </div>
-                </Link>
-              </Reveal>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      {/* ----------------------------------------------------------- Why us */}
-      <section className="relative isolate overflow-hidden bg-navy-900 py-20 sm:py-28">
-        <Image
-          src="/images/texture.jpg"
-          alt=""
-          fill
-          sizes="100vw"
-          className="object-cover opacity-10"
-          aria-hidden
-        />
-        <div className="sheen absolute inset-0" aria-hidden />
-
-        <div className="relative mx-auto max-w-7xl px-6">
-          <Reveal>
-            <SectionHeading
-              tone="light"
-              align="center"
-              eyebrow="Why Vaishnavi"
-              title="Built on relationships, run on discipline."
-              lead="What separates an organised recycler from a scrap trader is repeatability — the same grade, the same purity, the same delivery, every time."
-            />
-          </Reveal>
-
-          <div className="mt-16 grid gap-px overflow-hidden rounded-xl border border-white/10 bg-white/10 sm:grid-cols-2 lg:grid-cols-4">
-            {usps.map((u, i) => (
-              <Reveal key={u.title} delay={i * 80}>
-                <div className="h-full bg-navy-900 p-8 transition duration-500 hover:bg-navy-800">
-                  <span className="font-display text-3xl text-gold-400/70">
-                    {String(i + 1).padStart(2, "0")}
-                  </span>
-                  <h3 className="mt-5 text-lg font-semibold text-white">{u.title}</h3>
-                  <p className="mt-3 text-sm leading-relaxed text-steel-400">
-                    {u.body}
-                  </p>
                 </div>
-              </Reveal>
-            ))}
+              ))}
+            </dl>
+          ))}
+
+          <div className="mt-12 text-center">
+            <p className="text-lg font-semibold">Get in touch with us for best deals</p>
+            <BoxButton href="/contact" variant="white" className="mt-4 px-10 py-3 text-lg">
+              Contact Us
+            </BoxButton>
+          </div>
+        </div>
+      </section>
+
+      {/* ------------------------------------------------------- Catalogue */}
+      <section className="bg-white py-14">
+        <div className="mx-auto max-w-7xl px-6">
+          <Reveal>
+            <CatalogTitle>Aluminium alloys, ingots and steel-plant products</CatalogTitle>
+          </Reveal>
+
+          <div className="mt-10 grid gap-8 sm:grid-cols-2 lg:grid-cols-3">
+            {productCategories.map((category, i) => {
+              const inCategory = products.filter((p) => p.category === category);
+              return (
+                <Reveal key={category} delay={i * 80}>
+                  <CategoryCard
+                    title={category}
+                    href={`/products#${slugify(category)}`}
+                    image={inCategory[0]?.image ?? "/images/prod-ingots.jpg"}
+                    items={inCategory.map((p) => ({ label: p.name, href: `/products/${p.slug}` }))}
+                    highlight={i === 0}
+                  />
+                </Reveal>
+              );
+            })}
+            {industries.map((ind, i) => {
+              const slugs = industryProducts[ind.title] ?? [];
+              const items = slugs
+                .map((slug) => products.find((p) => p.slug === slug))
+                .filter((p): p is (typeof products)[number] => Boolean(p))
+                .map((p) => ({ label: p.name, href: `/products/${p.slug}` }));
+              return (
+                <Reveal key={ind.title} delay={i * 80}>
+                  <CategoryCard title={ind.title} href="/products" image={ind.image} items={items} />
+                </Reveal>
+              );
+            })}
           </div>
 
-          <Reveal delay={200}>
-            <blockquote className="mx-auto mt-16 max-w-4xl text-center">
-              <p className="font-display text-2xl leading-relaxed text-white sm:text-[1.75rem]">
-                &ldquo;{company.pullQuote}&rdquo;
+          <div className="mt-12 text-center">
+            <BoxButton href="/products">View Complete Range</BoxButton>
+          </div>
+        </div>
+      </section>
+
+      {/* --------------------------------------------------------- Contact */}
+      <ContactSection compact />
+
+      {/* ------------------------------------------------- Strengths panel */}
+      <section className="bg-steel-100 py-14">
+        <div className="mx-auto max-w-7xl px-6">
+          <CatalogTitle>Why buyers work with us</CatalogTitle>
+
+          <div className="mt-10 grid gap-10 lg:grid-cols-[0.3fr_0.38fr_0.32fr] lg:gap-0">
+            {/* Headline stat */}
+            <div className="lg:pr-10">
+              <p className="flex items-baseline gap-1 text-navy-900">
+                <span className="text-5xl font-bold">{stats[0].value}</span>
+                <span className="text-lg text-navy-600">years</span>
               </p>
-            </blockquote>
-          </Reveal>
-        </div>
-      </section>
-
-      {/* --------------------------------------------------------------- How */}
-      <section className="bg-white py-20 sm:py-28">
-        <div className="mx-auto max-w-7xl px-6">
-          <Reveal>
-            <SectionHeading
-              eyebrow="How we work"
-              title="Scrap in, specification out."
-              lead="Four steps between a vendor's load and a customer's furnace. Nothing exotic — just done the same way every time."
-            />
-          </Reveal>
-
-          <div className="mt-14 grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
-            {processSteps.map((s, i) => (
-              <Reveal key={s.step} delay={i * 80}>
-                <article className="group h-full overflow-hidden rounded-xl border border-navy-100 bg-white">
-                  <div className="relative aspect-16/11 overflow-hidden">
-                    <Image
-                      src={s.image}
-                      alt={s.title}
-                      fill
-                      sizes="(min-width: 1024px) 24vw, (min-width: 640px) 45vw, 100vw"
-                      className="object-cover transition duration-700 group-hover:scale-105"
-                    />
-                    <div
-                      className="absolute inset-0 bg-gradient-to-t from-navy-950/80 to-transparent"
-                      aria-hidden
-                    />
-                    <span className="absolute bottom-4 left-5 font-display text-3xl text-gold-300">
-                      {s.step}
-                    </span>
-                  </div>
-                  <div className="p-6">
-                    <h3 className="text-base font-semibold text-navy-900">{s.title}</h3>
-                    <p className="mt-2.5 text-sm leading-relaxed text-navy-600/85">
-                      {s.body}
-                    </p>
-                  </div>
-                </article>
-              </Reveal>
-            ))}
-          </div>
-
-          <Reveal delay={120}>
-            <div className="mt-10">
-              <Button href="/process" variant="outline">
-                See the full process
-                <ArrowRight />
-              </Button>
-            </div>
-          </Reveal>
-        </div>
-      </section>
-
-      {/* --------------------------------------------------------- Industries */}
-      <section className="bg-navy-50/70 py-20 sm:py-28">
-        <div className="mx-auto max-w-7xl px-6">
-          <Reveal>
-            <SectionHeading
-              eyebrow="Who we supply"
-              title="Three industries, one standard."
-              lead="Mid-size B2B industrial buyers who need consistent purity and a supplier they can plan production around."
-            />
-          </Reveal>
-
-          <div className="mt-14 grid gap-6 lg:grid-cols-3">
-            {industries.map((ind, i) => (
-              <Reveal key={ind.title} delay={i * 90}>
-                <article className="group relative h-96 overflow-hidden rounded-xl">
-                  <Image
-                    src={ind.image}
-                    alt={ind.title}
-                    fill
-                    sizes="(min-width: 1024px) 31vw, 100vw"
-                    className="object-cover transition duration-700 group-hover:scale-105"
-                  />
-                  <div
-                    className="absolute inset-0 bg-gradient-to-t from-navy-950 via-navy-950/55 to-transparent"
-                    aria-hidden
-                  />
-                  <div className="absolute inset-x-0 bottom-0 p-7">
-                    <h3 className="font-display text-2xl text-white">{ind.title}</h3>
-                    <p className="mt-3 text-sm leading-relaxed text-steel-300">
-                      {ind.body}
-                    </p>
-                  </div>
-                </article>
-              </Reveal>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      {/* ------------------------------------------------- Solutions + market */}
-      <section className="bg-white py-20 sm:py-28">
-        <div className="mx-auto max-w-7xl px-6">
-          <div className="grid gap-16 lg:grid-cols-[0.95fr_1.05fr] lg:gap-20">
-            <Reveal>
-              <SectionHeading
-                eyebrow="Our solutions"
-                title="The gap we close."
-                lead="Fragmented sourcing, mixed-grade scrap and an unreliable supply base are the industry's standing problems. These five habits are how we take them off our customers' desks."
-              />
-              <div className="mt-9 flex flex-wrap gap-3">
-                <Button href="/sustainability" variant="outline">
-                  Market &amp; sustainability
-                  <ArrowRight />
-                </Button>
-              </div>
-            </Reveal>
-
-            <Reveal delay={120}>
-              <ul className="divide-y divide-navy-100 border-y border-navy-100">
-                {solutions.map((s, i) => (
-                  <li key={s.title} className="flex gap-6 py-6">
-                    <span className="font-display text-2xl text-gold-500/70">
-                      {String(i + 1).padStart(2, "0")}
-                    </span>
-                    <div>
-                      <h3 className="text-base font-semibold text-navy-900">
-                        {s.title}
-                      </h3>
-                      <p className="mt-2 text-sm leading-relaxed text-navy-600/85">
-                        {s.body}
-                      </p>
-                    </div>
+              <p className="mt-1 text-sm text-navy-600">{stats[0].label}</p>
+              <ul className="mt-6 space-y-2.5">
+                {stats.slice(1).map((s) => (
+                  <li key={s.label} className="flex items-baseline gap-3 text-sm text-navy-800">
+                    <span className="w-8 text-right text-xl font-semibold text-navy-900">{s.value}</span>
+                    {s.label}
                   </li>
                 ))}
               </ul>
-            </Reveal>
+            </div>
+
+            {/* Highlights */}
+            <ul className="space-y-3 lg:border-l lg:border-steel-300 lg:px-10">
+              {highlights.map((h) => (
+                <li key={h} className="flex items-center gap-3 text-[0.95rem] text-navy-800">
+                  <span className="grid h-5 w-5 shrink-0 place-items-center rounded-full bg-emerald-600 text-white" aria-hidden>
+                    <svg viewBox="0 0 20 20" fill="currentColor" className="h-3 w-3">
+                      <path d="m8.1 13.6-3.4-3.4 1.4-1.4 2 2 5.8-5.8 1.4 1.4-7.2 7.2Z" />
+                    </svg>
+                  </span>
+                  {h}
+                </li>
+              ))}
+            </ul>
+
+            {/* Core values */}
+            <div className="lg:border-l lg:border-steel-300 lg:pl-10">
+              <p className="inline-flex items-center gap-2 text-lg text-navy-900">
+                <svg viewBox="0 0 24 24" fill="currentColor" className="h-5 w-5 text-emerald-600" aria-hidden>
+                  <path d="M2 10h4v11H2V10Zm6 0 3.5-7a2 2 0 0 1 2 2v4h5a2 2 0 0 1 2 2.3l-1.5 7A2 2 0 0 1 17 21H8V10Z" />
+                </svg>
+                Core values
+              </p>
+              <ul className="mt-4 space-y-3">
+                {coreValues.map((v) => (
+                  <li key={v.title} className="text-sm text-navy-800">
+                    <span className="font-semibold text-navy-900">{v.title}.</span> {v.body}
+                  </li>
+                ))}
+              </ul>
+            </div>
           </div>
 
-          {/* Market band */}
-          <Reveal delay={100}>
-            <div className="mt-20 overflow-hidden rounded-2xl border border-navy-100 bg-navy-50/60">
-              <div className="grid gap-px bg-navy-100 sm:grid-cols-3">
-                {[market.tam, market.sam, market.som].map((m) => (
-                  <div key={m.label} className="bg-navy-50/60 p-8">
-                    <Eyebrow>{m.label}</Eyebrow>
-                    <h3 className="mt-3 font-display text-xl text-navy-900">
-                      {m.title}
-                    </h3>
-                    <p className="mt-3 text-sm leading-relaxed text-navy-600/85">
-                      {m.body}
-                    </p>
-                  </div>
-                ))}
+          <p className="mt-12 font-semibold text-navy-900">What sets us apart</p>
+          <div className="mt-5 grid gap-px bg-steel-300 sm:grid-cols-2 lg:grid-cols-4">
+            {usps.map((u) => (
+              <div key={u.title} className="bg-steel-100 p-5 first:pl-0">
+                <div className="flex items-center gap-3">
+                  <span className="grid h-10 w-10 place-items-center rounded-full bg-white text-lg font-semibold text-navy-800 shadow-sm">
+                    {u.title.charAt(0)}
+                  </span>
+                  <h3 className="font-semibold text-navy-900">{u.title}</h3>
+                </div>
+                <p className="mt-3 text-sm leading-relaxed text-navy-700">{u.body}</p>
               </div>
-            </div>
-          </Reveal>
+            ))}
+          </div>
+
+          <div className="mt-10 text-center">
+            <BoxButton href="/about">View Company Profile</BoxButton>
+          </div>
         </div>
       </section>
-
-      <CtaBand
-        title="Need a consistent grade, delivered on schedule?"
-        lead="Tell us the alloy, the purity and the monthly tonnage you run. We will come back with what we can commit to."
-      />
     </>
   );
 }

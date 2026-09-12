@@ -166,5 +166,77 @@
     "license": "Unsplash License",
     "source": "https://unsplash.com/photos/1594255897691-9d1edad1ecfc",
     "query": "unsplash"
+  },
+  "gallery-bars": {
+    "file": "/images/gallery-bars.jpg",
+    "title": "Cylindrical aluminium bars stacked in a circular pattern",
+    "author": "Unsplash contributor",
+    "license": "Unsplash License",
+    "source": "https://unsplash.com/photos/1788931211447-6f9cfee42c17",
+    "query": "unsplash"
+  },
+  "gallery-bars-warehouse": {
+    "file": "/images/gallery-bars-warehouse.jpg",
+    "title": "Metal bars stacked neatly in a warehouse",
+    "author": "Unsplash contributor",
+    "license": "Unsplash License",
+    "source": "https://unsplash.com/photos/1763926062529-1edf8664c366",
+    "query": "unsplash"
+  },
+  "gallery-scrap-pile": {
+    "file": "/images/gallery-scrap-pile.jpg",
+    "title": "A pile of metal scrap beside a building",
+    "author": "Unsplash contributor",
+    "license": "Unsplash License",
+    "source": "https://unsplash.com/photos/1671362935207-d9abfc5b9509",
+    "query": "unsplash"
+  },
+  "gallery-metal-parts": {
+    "file": "/images/gallery-metal-parts.jpg",
+    "title": "A pile of metal parts collected for recycling",
+    "author": "Unsplash contributor",
+    "license": "Unsplash License",
+    "source": "https://unsplash.com/photos/1727372416961-131342689e1e",
+    "query": "unsplash"
+  },
+  "gallery-cubes": {
+    "file": "/images/gallery-cubes.jpg",
+    "title": "Metallic cubes arranged in a stepped pattern",
+    "author": "Unsplash contributor",
+    "license": "Unsplash License",
+    "source": "https://unsplash.com/photos/1776235239513-1bf26921e458",
+    "query": "unsplash"
+  },
+  "gallery-sheets": {
+    "file": "/images/gallery-sheets.jpg",
+    "title": "A stack of metal sheets",
+    "author": "Unsplash contributor",
+    "license": "Unsplash License",
+    "source": "https://unsplash.com/photos/1739105329094-70e964758e05",
+    "query": "unsplash"
+  },
+  "gallery-furnace-pour": {
+    "file": "/images/gallery-furnace-pour.jpg",
+    "title": "Molten metal being poured on a casting machine",
+    "author": "Unsplash contributor",
+    "license": "Unsplash License",
+    "source": "https://unsplash.com/photos/1697281679213-fcab27e10ad4",
+    "query": "unsplash"
+  },
+  "gallery-furnace-operator": {
+    "file": "/images/gallery-furnace-operator.jpg",
+    "title": "An operator standing in front of a metal furnace",
+    "author": "Unsplash contributor",
+    "license": "Unsplash License",
+    "source": "https://unsplash.com/photos/1723109453405-7adc98d376a7",
+    "query": "unsplash"
+  },
+  "gallery-shavings": {
+    "file": "/images/gallery-shavings.jpg",
+    "title": "Metal shavings piled on a workbench",
+    "author": "Unsplash contributor",
+    "license": "Unsplash License",
+    "source": "https://unsplash.com/photos/1763950866216-736f090bc9db",
+    "query": "unsplash"
   }
 }

@@ -18,6 +18,10 @@ export type Product = {
   summary: string;
   description: string[];
   image: string;
+  /** Extra photographs shown as thumbnails on the product page. */
+  gallery: string[];
+  /** Unit the product is quoted in. */
+  unit: string;
   keyFacts: { label: string; value: string }[];
   applications: string[];
   /** Standard the chemistry table is quoted against, if any. */
@@ -40,6 +44,8 @@ export const products: Product[] = [
       "Because the alloy is made to order against the grade you run, each consignment arrives with the same handling and melting behaviour as the last — no surprises when the metal hits the holding furnace.",
     ],
     image: "/images/prod-adc12.jpg",
+    gallery: ["/images/gallery-furnace-pour.jpg", "/images/gallery-cubes.jpg"],
+    unit: "Kg",
     keyFacts: [
       { label: "Grade", value: "ADC-12 (die-casting)" },
       { label: "Standard referenced", value: "JIS H5302" },
@@ -79,6 +85,8 @@ export const products: Product[] = [
       "Vaishnavi Enterprises processes LM-24 / AC-4B from segregated scrap streams, holding the chemistry within the standard band so that die-casters can run it without adjusting their process.",
     ],
     image: "/images/prod-lm24.jpg",
+    gallery: ["/images/gallery-furnace-operator.jpg", "/images/pouring.jpg"],
+    unit: "Kg",
     keyFacts: [
       { label: "Grade", value: "LM-24 / AC-4B" },
       { label: "Standard referenced", value: "BS 1490 / JIS H5202" },
@@ -120,6 +128,8 @@ export const products: Product[] = [
       "Ingots are the default choice for re-melters and alloy manufacturers who want to control their own final chemistry while starting from a known, uniform base metal.",
     ],
     image: "/images/prod-ingots.jpg",
+    gallery: ["/images/gallery-bars-warehouse.jpg", "/images/gallery-sheets.jpg"],
+    unit: "Kg",
     keyFacts: [
       { label: "Purity", value: "~98% (approx.)" },
       { label: "Category", value: "Refined ingot" },
@@ -147,6 +157,8 @@ export const products: Product[] = [
       "This is the product that replaces a share of virgin aluminium in a customer's charge mix — at a materially lower energy and cost footprint than primary metal.",
     ],
     image: "/images/prod-soft-aluminium.jpg",
+    gallery: ["/images/gallery-bars.jpg", "/images/gallery-metal-parts.jpg"],
+    unit: "Kg",
     keyFacts: [
       { label: "Purity", value: "~97% (approx.)" },
       { label: "Input", value: "Hard aluminium scrap" },
@@ -174,6 +186,8 @@ export const products: Product[] = [
       "Shots are supplied to steel plants and industrial users who need controlled, repeatable additions rather than bulk ingot charging.",
     ],
     image: "/images/prod-shots.jpg",
+    gallery: ["/images/gallery-shavings.jpg", "/images/gallery-scrap-pile.jpg"],
+    unit: "Kg",
     keyFacts: [
       { label: "Form", value: "Granulated shots" },
       { label: "Category", value: "Feedstock" },
@@ -201,6 +215,8 @@ export const products: Product[] = [
       "Vaishnavi Enterprises has supplied this product line into steel plants directly, and these relationships are a core part of the business.",
     ],
     image: "/images/prod-cubes-bars.jpg",
+    gallery: ["/images/gallery-cubes.jpg", "/images/gallery-bars-warehouse.jpg"],
+    unit: "Kg",
     keyFacts: [
       { label: "Grade", value: "Steel-plant & industrial" },
       { label: "Formats", value: "Cubes, notch bars" },

@@ -4,13 +4,20 @@ import { useSearchParams } from "next/navigation";
 import { useState } from "react";
 import { products } from "@/data/products";
 import { company } from "@/data/site";
-import { ArrowRight } from "@/components/ui";
 
 type Status = "idle" | "sending" | "sent" | "error";
 
-export default function EnquiryForm() {
+/**
+ * Enquiry form posting to /api/enquiry.
+ *
+ * `compact` renders the short supplier-directory style form (message first,
+ * then the minimum contact details). The full form adds product, quantity and
+ * phone and is used on the contact page.
+ */
+export default function EnquiryForm({ compact = false }: { compact?: boolean }) {
   const searchParams = useSearchParams();
   const preselected = searchParams.get("product") ?? "";
+  const preselectedName = products.find((p) => p.slug === preselected)?.name;
   const [status, setStatus] = useState<Status>("idle");
   const [message, setMessage] = useState("");
 
@@ -43,28 +50,28 @@ export default function EnquiryForm() {
   }
 
   const field =
-    "w-full rounded-md border border-navy-200 bg-white px-4 py-3 text-sm text-navy-900 transition placeholder:text-navy-300 focus:border-gold-400 focus:outline-none";
-  const label = "block text-xs font-semibold uppercase tracking-wide text-navy-600";
+    "w-full rounded-sm border border-steel-300 bg-white px-4 py-3 text-[0.95rem] text-navy-900 transition placeholder:text-navy-400 focus:border-navy-600 focus:outline-none";
+  const label = "block text-[0.95rem] font-medium text-navy-900";
 
   if (status === "sent") {
     return (
-      <div className="rounded-xl border border-gold-300 bg-gold-200/25 p-8">
-        <h3 className="font-display text-2xl text-navy-900">Enquiry received</h3>
+      <div className="rounded-sm border border-gold-300 bg-gold-200/25 p-8">
+        <h3 className="text-2xl font-semibold text-navy-900">Enquiry received</h3>
         <p className="mt-3 text-sm leading-relaxed text-navy-700">
-          Thank you — your details have been recorded. For anything urgent, calling is
-          still the fastest route to an answer.
+          Thank you. Your details have been recorded. For anything urgent, calling is still the
+          fastest route to an answer.
         </p>
         <div className="mt-6 flex flex-wrap gap-3">
           <a
             href={company.phoneHref}
-            className="rounded-md bg-navy-800 px-5 py-3 text-sm font-semibold text-white transition hover:bg-navy-700"
+            className="rounded-sm bg-navy-700 px-5 py-3 text-sm font-semibold text-white transition hover:bg-navy-600"
           >
             {company.phone}
           </a>
           <button
             type="button"
             onClick={() => setStatus("idle")}
-            className="rounded-md border border-navy-300 px-5 py-3 text-sm font-semibold text-navy-800 transition hover:bg-white"
+            className="rounded-sm border border-navy-600 px-5 py-3 text-sm font-semibold text-navy-800 transition hover:bg-white"
           >
             Send another enquiry
           </button>
@@ -73,8 +80,95 @@ export default function EnquiryForm() {
     );
   }
 
+  const messageField = (
+    <div>
+      <label className={label} htmlFor="message">
+        Your Message
+      </label>
+      <textarea
+        id="message"
+        name="message"
+        required
+        rows={compact ? 4 : 5}
+        className={`${field} mt-2 resize-y`}
+        defaultValue={preselectedName ? `I am interested in ${preselectedName}. ` : ""}
+        placeholder="Describe your requirement in detail: grade, specification, monthly quantity and delivery location."
+      />
+    </div>
+  );
+
+  const errorBox =
+    status === "error" ? (
+      <p role="alert" className="rounded-sm bg-red-50 px-4 py-3 text-sm text-red-700">
+        {message} You can also email us directly at{" "}
+        <a href={company.emailHref} className="font-semibold underline">
+          {company.email}
+        </a>
+        .
+      </p>
+    ) : null;
+
+  const honeypot = (
+    // Honeypot: real users never see or fill this.
+    <div className="hidden" aria-hidden>
+      <label htmlFor="website">Website</label>
+      <input id="website" name="website" type="text" tabIndex={-1} autoComplete="off" />
+    </div>
+  );
+
+  const submit = (
+    <button
+      type="submit"
+      disabled={status === "sending"}
+      className="inline-flex min-w-48 items-center justify-center rounded-sm bg-navy-700 px-10 py-3.5 text-lg font-medium text-white transition hover:bg-navy-600 disabled:cursor-not-allowed disabled:opacity-60"
+    >
+      {status === "sending" ? "Sending…" : compact ? "Submit" : "Send enquiry"}
+    </button>
+  );
+
+  if (compact) {
+    return (
+      <form onSubmit={onSubmit} className="space-y-5">
+        {messageField}
+        <div className="grid gap-5 sm:grid-cols-3">
+          <div>
+            <label className={label} htmlFor="name">
+              Name
+            </label>
+            <input id="name" name="name" type="text" required autoComplete="name" className={`${field} mt-2`} />
+          </div>
+          <div>
+            <label className={label} htmlFor="companyName">
+              Company
+            </label>
+            <input
+              id="companyName"
+              name="companyName"
+              type="text"
+              required
+              autoComplete="organization"
+              className={`${field} mt-2`}
+            />
+          </div>
+          <div>
+            <label className={label} htmlFor="email">
+              Email
+            </label>
+            <input id="email" name="email" type="email" required autoComplete="email" className={`${field} mt-2`} />
+          </div>
+        </div>
+        <input type="hidden" name="product" value={preselected} />
+        {honeypot}
+        {errorBox}
+        {submit}
+      </form>
+    );
+  }
+
   return (
-    <form onSubmit={onSubmit} className="space-y-5" noValidate={false}>
+    <form onSubmit={onSubmit} className="space-y-5">
+      {messageField}
+
       <div className="grid gap-5 sm:grid-cols-2">
         <div>
           <label className={label} htmlFor="name">
@@ -125,14 +219,7 @@ export default function EnquiryForm() {
           <label className={label} htmlFor="phone">
             Phone
           </label>
-          <input
-            id="phone"
-            name="phone"
-            type="tel"
-            autoComplete="tel"
-            className={`${field} mt-2`}
-            placeholder="+91"
-          />
+          <input id="phone" name="phone" type="tel" autoComplete="tel" className={`${field} mt-2`} placeholder="+91" />
         </div>
       </div>
 
@@ -141,12 +228,7 @@ export default function EnquiryForm() {
           <label className={label} htmlFor="product">
             Product of interest
           </label>
-          <select
-            id="product"
-            name="product"
-            defaultValue={preselected}
-            className={`${field} mt-2`}
-          >
+          <select id="product" name="product" defaultValue={preselected} className={`${field} mt-2`}>
             <option value="">Select a product</option>
             {products.map((p) => (
               <option key={p.slug} value={p.slug}>
@@ -170,44 +252,9 @@ export default function EnquiryForm() {
         </div>
       </div>
 
-      <div>
-        <label className={label} htmlFor="message">
-          Your requirement <span className="text-gold-600">*</span>
-        </label>
-        <textarea
-          id="message"
-          name="message"
-          required
-          rows={5}
-          className={`${field} mt-2 resize-y`}
-          placeholder="Grade, specification, delivery location and any chemistry limits you need us to hold."
-        />
-      </div>
-
-      {/* Honeypot — real users never see or fill this. */}
-      <div className="hidden" aria-hidden>
-        <label htmlFor="website">Website</label>
-        <input id="website" name="website" type="text" tabIndex={-1} autoComplete="off" />
-      </div>
-
-      {status === "error" ? (
-        <p role="alert" className="rounded-md bg-red-50 px-4 py-3 text-sm text-red-700">
-          {message} You can also email us directly at{" "}
-          <a href={company.emailHref} className="font-semibold underline">
-            {company.email}
-          </a>
-          .
-        </p>
-      ) : null}
-
-      <button
-        type="submit"
-        disabled={status === "sending"}
-        className="inline-flex items-center justify-center gap-2 rounded-md bg-navy-800 px-7 py-3.5 text-sm font-semibold text-white transition hover:bg-navy-700 disabled:cursor-not-allowed disabled:opacity-60"
-      >
-        {status === "sending" ? "Sending…" : "Send enquiry"}
-        {status === "sending" ? null : <ArrowRight />}
-      </button>
+      {honeypot}
+      {errorBox}
+      {submit}
 
       <p className="text-xs leading-relaxed text-navy-500">
         We use your details only to respond to this enquiry.

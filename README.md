@@ -24,7 +24,7 @@ Then open <http://localhost:3000>.
 | `npm run build`     | Production build (19 prerendered routes)        |
 | `npm run start`     | Serve the production build                      |
 | `npm run typecheck` | `tsc --noEmit`                                  |
-| `npm run images`    | Re-fetch the free-licence photography (Python 3) |
+| `npm run images`    | Re-fetch the free-licence photography, incl. gallery extras (Python 3) |
 
 ---
 
@@ -32,13 +32,13 @@ Then open <http://localhost:3000>.
 
 | Route                | Contents                                                            |
 | -------------------- | ------------------------------------------------------------------- |
-| `/`                  | Hero, stats, about, product grid, USPs, process, industries, market  |
+| `/`                  | Product carousel, profile band with company facts, category cards, contact panel, strengths |
 | `/about`             | Company story, vision, mission, core values, leadership, scale-up    |
-| `/products`          | Full catalogue grouped by category                                   |
-| `/products/[slug]`   | Per-grade detail with chemistry table, applications, formats         |
+| `/products`          | Catalogue grouped by category as stacked listings (gallery, price-on-request, spec table); `?q=` filters |
+| `/products/[slug]`   | Per-grade listing with thumbnails, spec table, chemistry, siblings and other lines |
 | `/process`           | Four-step workflow, challenges vs. solutions, business model         |
 | `/sustainability`    | Circular economy, TAM/SAM/SOM diagram, growth drivers, roadmap       |
-| `/contact`           | Contact channels and enquiry form                                    |
+| `/contact`           | Contact channels, split contact panel and full enquiry form          |
 | `/credits`           | Photography attribution                                              |
 
 `sitemap.xml` and `robots.txt` are generated at build time.

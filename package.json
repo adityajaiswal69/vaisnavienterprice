@@ -9,7 +9,7 @@
     "start": "next start",
     "lint": "next lint",
     "typecheck": "tsc --noEmit",
-    "images": "python scripts/fetch_images.py . && python scripts/fetch_unsplash.py . && python scripts/replace_images.py ."
+    "images": "python scripts/fetch_images.py . && python scripts/fetch_unsplash.py . && python scripts/replace_images.py . && python scripts/fetch_extra_images.py ."
   },
   "dependencies": {
     "next": "^15.5.4",

@@ -171,7 +171,7 @@ export const industries = [
   {
     title: "Die-casters & alloy manufacturers",
     body: "ADC-12 and LM-24 / AC-4B alloy supplied to specification for pressure and gravity die-casting.",
-    image: "/images/prod-adc12.jpg",
+    image: "/images/gallery-metal-parts.jpg",
   },
   {
     title: "Foundries & re-melters",
@@ -275,11 +275,35 @@ export const revenueModel = [
   },
 ] as const;
 
+/** Facts strip shown on the home page profile band (two rows of four). */
+export const companyFacts = [
+  { label: "Nature of Business", value: "Manufacturer & Recycler" },
+  { label: "Total Number of Employees", value: "22 People" },
+  { label: "Year of Establishment", value: "2016" },
+  { label: "Legal Status of Firm", value: "Sole Proprietorship" },
+  { label: "Years in Aluminium Recycling", value: "9+ Years" },
+  { label: "Founder Experience", value: "25 Years" },
+  { label: "Active B2B Customers", value: "10" },
+  { label: "Product Lines", value: "6" },
+] as const;
+
+export const contactPerson = {
+  name: "Proprietor",
+  role: "Vaishnavi Enterprises",
+} as const;
+
 export const nav = [
   { href: "/", label: "Home" },
-  { href: "/about", label: "About" },
+  { href: "/about", label: "Profile" },
   { href: "/products", label: "Products" },
   { href: "/process", label: "Process" },
   { href: "/sustainability", label: "Sustainability" },
-  { href: "/contact", label: "Contact" },
+  { href: "/contact", label: "Contact Us" },
+] as const;
+
+/** Top-level links shown in the header bar; the rest live in the footer. */
+export const headerNav = [
+  { href: "/", label: "Home" },
+  { href: "/about", label: "Profile" },
+  { href: "/contact", label: "Contact Us" },
 ] as const;
